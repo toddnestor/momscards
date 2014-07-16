@@ -11,10 +11,14 @@ include('inc/header.php'); ?>
 		
 			<h1>Contact</h1>
 			
-			<?php	echo isset($_GET['sent']) ? "<h2 class=\"message-sent\">Your message was sent!</h2>":""; ?>
-			<?php	echo isset($_GET['error']) ? "<h2 class=\"message-sent\">You must fill out the complete form to submit a message!</h2>":""; ?>
-        
-          <p>I&rsquo;d love to hear from you! Complete the form to send me an e-mail.</p>
+			<?php
+			$message = array();
+			$message["sent"] = "Your message was sent!";
+			$message["error"] = "You must fill out the complete form to submit a message!";
+			$message["spam"] = "You appear to be submitting spam, please don't do that.";
+			$message["email"] = "You must use a valid e-mail address.";
+			
+			echo isset($_GET['msg']) ? '<p class="message">' . $message[$_GET["msg"]] . '</p>':"<p>I&rsquo;d love to hear from you! Complete the form to send me an e-mail.</p>"; ?>
           
           <form method="post" action="contact-process.php">
             
@@ -41,6 +45,15 @@ include('inc/header.php'); ?>
                 </th>
                 <td>
                     <textarea name="message" id="message" placeholder="Enter message here..."><?php echo isset($_SESSION['message']) ? $_SESSION['message']:""; ?></textarea>
+                </td>
+              </tr>
+							<tr style="display: none;">
+                <th>
+                    <label for="address">Address</label>
+                </th>
+                <td>
+                    <input type="text" id="address" name="address" placeholder="Enter address here...">
+								    <p>Humans: don't fill out this form, it is to trick the robots.</p>
                 </td>
               </tr>
             </table>

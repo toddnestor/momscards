@@ -61,7 +61,7 @@ $products[108] = array(
 function displayProducts($products=array(), $count=0, $echo=1) {
   $string = "";
   $string .= '<ul class="products">';
-  array_reverse($products);
+  $products = array_reverse($products);
   $products = $count ? array_slice($products,0,$count):$products;
   foreach($products as $product_id => $product) {
     $string .= '<li>';

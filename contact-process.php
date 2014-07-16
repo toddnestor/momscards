@@ -1,10 +1,30 @@
 <?php
 session_start();
-if(isset($_POST['name']) && isset($_POST['email']) && isset($_POST['message']) && $_POST['name'] != "" && $_POST['email'] != "" && $_POST['message'] != "")
+if(isset($_POST['name']) && isset($_POST['email']) && isset($_POST['message']) && trim($_POST['name']) != "" && trim($_POST['email']) != "" && trim($_POST['message']) != "")
 {
+  foreach($_POST as $value) {
+    if(strpos($value,'Content-Type:') !== FALSE) {
+      header("Location: contact.php?msg=spam");
+      exit;
+    }
+  }
+  
+  if(isset($_POST['address']) && $_POST['address'] != "")
+  {
+    header("Location: contact.php?msg=spam");
+    exit;
+  }
   $name = $_POST['name'];
   $email = $_POST['email'];
   $message = $_POST['message'];
+  
+  require_once("inc/phpmailer/class.phpmailer.php");
+  $mail = new PHPMailer();
+  
+  if(!$mail->ValidateAddress($email)) {
+    header("Location: contact.php?msg=email");
+    exit;
+  }
   
   $email_body = "";
   
@@ -14,7 +34,24 @@ if(isset($_POST['name']) && isset($_POST['email']) && isset($_POST['message']) &
   
   $email_body .= "Message: \n" . $message;
   
-  mail("todd.nestor@gmail.com", "toddnestor.com Contact Form", $email_body);
+  $mail->SetFrom($email, $name);
+  
+  $address = "todd.nestor@gmail.com";
+  $mail->AddAddress($address, "Todd Nestor");
+  
+  $mail->Subject = "sherriscards.com Contact Form | " . $name;
+  
+  $mail->AltBody = $email_body;
+  
+  $mail->MsgHTML(str_replace("\n","<br>",$email_body));
+  
+  if(!$mail->Send()) {
+    header("Location: contact.php?msg=error");
+    exit();
+  } else {
+    header("Location: contact.php?msg=sent");
+    exit();
+  }
   
   $_SESSION['name'] = "";
   $_SESSION['email'] = "";
@@ -27,6 +64,6 @@ else
   $_SESSION['name'] = $_POST['name'] != "" ? $_POST['name']:"";
   $_SESSION['email'] = $_POST['email'] != "" ? $_POST['email']:"";
   $_SESSION['message'] = $_POST['message'] != "" ? $_POST['message']:"";
-  header("Location: contact.php?error=1");
+  header("Location: contact.php?msg=error");
 }
 ?>
