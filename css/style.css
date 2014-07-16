@@ -597,15 +597,6 @@ body {font-family: 'Oswald', sans-serif; background:#f0eeed; color: #676767;}
     line-height: 1.6;
     font-weight: normal;    
 }
-
-.section.page h2 {
-    text-align: center;
-}
-
-.message-sent {
-    color: #f00;
-}
-
 .section.page .shirt-details h1 {
     text-align: left;
 }
@@ -742,6 +733,9 @@ form input[type="submit"] {
     list-style: none;
     display: inline-block;
     text-transform: lowercase;
+}
+.message-sent {
+    color: #f00;
 }
 .footer ul li:after {content:" | "}
 .footer ul li:last-child:after {content:"";}
