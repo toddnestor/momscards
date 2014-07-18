@@ -1,8 +1,9 @@
 <?php
+require_once("../inc/config.php");
 session_start();
 $pageTitle = "Contact Mike";
 $section = "contact";
-include('inc/header.php'); ?>
+include(ROOT_PATH . 'inc/header.php'); ?>
 
 	<div class="section page">
 
@@ -20,7 +21,7 @@ include('inc/header.php'); ?>
 			
 			echo isset($_GET['msg']) ? '<p class="message">' . $message[$_GET["msg"]] . '</p>':"<p>I&rsquo;d love to hear from you! Complete the form to send me an e-mail.</p>"; ?>
           
-          <form method="post" action="contact-process.php">
+          <form method="post" action="<?php echo BASE_URL; ?>contact-process.php">
             
             <table>
               <tr>
@@ -28,7 +29,7 @@ include('inc/header.php'); ?>
                     <label for="name">Name</label>
                 </th>
                 <td>
-                    <input <?php echo isset($_SESSION['name']) ? "value=\"" . $_SESSION['name'] . "\"":""; ?> type="text" id="name" name="name" placeholder="Enter your name here...">
+                    <input <?php echo isset($_SESSION['name']) ? "value=\"" . htmlspecialchars($_SESSION['name']) . "\"":""; ?> type="text" id="name" name="name" placeholder="Enter your name here...">
                 </td>
               </tr>
               <tr>
@@ -36,7 +37,7 @@ include('inc/header.php'); ?>
                     <label for="email">E-mail</label>
                 </th>
                 <td>
-                    <input  <?php echo isset($_SESSION['email']) ? "value=\"" . $_SESSION['email'] . "\"":""; ?> type="text" id="email" name="email" placeholder="Enter e-mail address here...">
+                    <input  <?php echo isset($_SESSION['email']) ? "value=\"" . htmlspecialchars($_SESSION['email']) . "\"":""; ?> type="text" id="email" name="email" placeholder="Enter e-mail address here...">
                 </td>
               </tr>
               <tr>
@@ -44,7 +45,7 @@ include('inc/header.php'); ?>
                     <label for="message">Message</label>
                 </th>
                 <td>
-                    <textarea name="message" id="message" placeholder="Enter message here..."><?php echo isset($_SESSION['message']) ? $_SESSION['message']:""; ?></textarea>
+                    <textarea name="message" id="message" placeholder="Enter message here..."><?php echo isset($_SESSION['message']) ? htmlspecialchars($_SESSION['message']):""; ?></textarea>
                 </td>
               </tr>
 							<tr style="display: none;">
@@ -64,4 +65,4 @@ include('inc/header.php'); ?>
 
 	</div>
 
-<?php include('inc/footer.php') ?>
+<?php include(ROOT_PATH . 'inc/footer.php') ?>

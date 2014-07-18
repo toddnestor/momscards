@@ -1,33 +1,35 @@
-<?php 
+<?php
+//echo in_array('mod_rewrite', apache_get_modules()) ? "yes":"no";
+require_once("inc/config.php");
 $pageTitle = "Sherri's Cards";
 $section = "home";
-include('inc/header.php'); ?>
+include(ROOT_PATH . 'inc/header.php'); ?>
 		<div class="section banner">
 
 			<div class="wrapper">
 
-				<img class="hero" src="img/mike-the-frog.png" alt="Mike the Frog says:">
+				<img class="hero" src="<?php echo BASE_URL; ?>img/rotated_birthday_card.png" alt="Sherri makes cards">
 				<div class="button">
-					<a href="shirts.php">
-						<h2>Hey, I&rsquo;m Mike!</h2>
-						<p>Check Out My Shirts</p>
+					<a href="<?php echo BASE_URL; ?>cards/">
+						<h2>Welcome, I&rsquo;m Sherri!</h2>
+						<p>See all my cards available!</p>
 					</a>
 				</div>
 			</div>
 
 		</div>
 
-		<div class="section shirts latest">
+		<div class="section cards latest">
 
 			<div class="wrapper">
 
-				<h2>Mike&rsquo;s Latest Shirts</h2>
-        <?php include("inc/products.php"); ?>
+				<h2>Sherri&rsquo;s Latest Cards</h2>
+        <?php require_once(ROOT_PATH . "inc/products.php"); ?>
 				
-        <?php displayProducts($products, $count=4); ?>
+        <?php displayProducts(4); ?>
 
 			</div>
 
 		</div>
 
-<?php include('inc/footer.php') ?>
+<?php include(ROOT_PATH . '/inc/footer.php') ?>

@@ -1,17 +1,22 @@
 <?php
 session_start();
+require_once("inc/config.php");
 if(isset($_POST['name']) && isset($_POST['email']) && isset($_POST['message']) && trim($_POST['name']) != "" && trim($_POST['email']) != "" && trim($_POST['message']) != "")
 {
+  $_SESSION['name'] = $_POST['name'] != "" ? $_POST['name']:"";
+  $_SESSION['email'] = $_POST['email'] != "" ? $_POST['email']:"";
+  $_SESSION['message'] = $_POST['message'] != "" ? $_POST['message']:"";
+  
   foreach($_POST as $value) {
     if(strpos($value,'Content-Type:') !== FALSE) {
-      header("Location: contact.php?msg=spam");
+      header("Location: " . BASE_URL . "contact/?msg=spam");
       exit;
     }
   }
   
   if(isset($_POST['address']) && $_POST['address'] != "")
   {
-    header("Location: contact.php?msg=spam");
+    header("Location: " . BASE_URL . "contact/?msg=spam");
     exit;
   }
   $name = $_POST['name'];
@@ -22,7 +27,7 @@ if(isset($_POST['name']) && isset($_POST['email']) && isset($_POST['message']) &
   $mail = new PHPMailer();
   
   if(!$mail->ValidateAddress($email)) {
-    header("Location: contact.php?msg=email");
+    header("Location: " . BASE_URL . "contact/?msg=email");
     exit;
   }
   
@@ -46,10 +51,10 @@ if(isset($_POST['name']) && isset($_POST['email']) && isset($_POST['message']) &
   $mail->MsgHTML(str_replace("\n","<br>",$email_body));
   
   if(!$mail->Send()) {
-    header("Location: contact.php?msg=error");
+    header("Location: " . BASE_URL . "contact/?msg=error");
     exit();
   } else {
-    header("Location: contact.php?msg=sent");
+    header("Location: " . BASE_URL . "contact/?msg=sent");
     exit();
   }
   
@@ -57,13 +62,13 @@ if(isset($_POST['name']) && isset($_POST['email']) && isset($_POST['message']) &
   $_SESSION['email'] = "";
   $_SESSION['message'] = "";
   
-  header("Location: contact.php?sent=1");
+  header("Location: " . BASE_URL . "contact/?sent=1");
 }
 else
 {
   $_SESSION['name'] = $_POST['name'] != "" ? $_POST['name']:"";
   $_SESSION['email'] = $_POST['email'] != "" ? $_POST['email']:"";
   $_SESSION['message'] = $_POST['message'] != "" ? $_POST['message']:"";
-  header("Location: contact.php?msg=error");
+  header("Location: " . BASE_URL . "contact/?msg=error");
 }
 ?>
