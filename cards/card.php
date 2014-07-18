@@ -40,20 +40,27 @@ include(ROOT_PATH . '/inc/header.php');
                   <label for="os0">Package</label>
               </th>
               <td>
+                <select name="os0">
+                  <option value="Single Card">Single Card $3.49 USD</option>
+                  <option value="Five Pack">Five Pack $9.99 USD</option>
+                  <option value="Ten Pack">Ten Pack $17.99 USD</option>
+                  <option value="Twenty Pack">Twenty Pack $29.99 USD</option>
+                </select>
+                <!--
                 <select name="os0" id="os0">
                   <?php foreach($product["packages"] as $package) { ?>
                   <option value="<?php echo $package; ?>"><?php echo $package; ?> </option>
                   <?php } ?>
                 </select>
+              -->
               </td>
             </tr>
             <tr>
               <th>
-                <input type="hidden" name="on1" value="Quantity">
-                  <label for="os1">Quantity</label>
+                  <label for="quantity">Quantity</label>
               </th>
               <td>
-                <input type="number" name="os1" id="os1" value=1>
+                <input type="number" name="quantity" id="quantity" value=1>
               </td>
             </tr>
             </table>

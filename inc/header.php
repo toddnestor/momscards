@@ -13,7 +13,7 @@
 
 		<div class="wrapper">
 
-			<h1 class="branding-title"><a href="<?php echo BASE_URL; ?>">Cards 4 Mike</a></h1>
+			<h1 class="branding-title"><a href="<?php echo BASE_URL; ?>">Sherri's Cards</a></h1>
 
 			<ul class="nav">
 				<li class="cards <?php if ($section == "cards") { echo "on"; } ?>"><a href="<?php echo BASE_URL; ?>cards/">Cards</a></li>
